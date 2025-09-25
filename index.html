@@ -51,28 +51,11 @@
     @keyframes float{0%{transform:translateY(40px) scale(.8); opacity:0} 10%{opacity:1} 100%{transform:translateY(-110%) scale(1.3); opacity:0}}
     .surprise{display:none; background:#fff; padding:16px 18px; border-radius:16px; box-shadow:0 8px 24px #00000018; max-width:640px}
     .surprise.show{display:block}
-    .banner{position:fixed; inset:0; background:rgba(0,0,0,.65); display:flex; align-items:center; justify-content:center; z-index:1000;}
-    .banner-content{background:#fff; padding:28px 32px; border-radius:20px; max-width:640px; box-shadow:0 10px 30px #00000055; text-align:center; animation:fadeIn .6s ease;}
-    .banner-content h2{margin:0 0 12px; font-size:clamp(22px,3vw,28px); color:var(--accent)}
-    .banner-content p{font-size:clamp(16px,2vw,20px); line-height:1.6; margin:0 0 18px;}
-    .banner-content input{padding:10px; border:2px solid #ffd1da; border-radius:8px; width:100%; margin-bottom:12px;}
-    .banner-content button{appearance:none; border:none; cursor:pointer; padding:10px 18px; border-radius:999px; background:var(--accent); color:#fff; font-weight:600; box-shadow:0 4px 14px #ff4d6d66;}
-    @keyframes fadeIn{from{opacity:0; transform:scale(.95)} to{opacity:1; transform:scale(1)}}
     footer{padding:14px 24px; font-size:13px; color:var(--muted); text-align:center;}
   </style>
 </head>
 <body>
-  <div class="banner" id="banner">
-    <div class="banner-content">
-      <h2>Bienvenida, Martola ✨</h2>
-      <p>Introduce la contraseña para entrar (pista: es una palabra especial 💡)</p>
-      <input type="password" id="banner-pass" placeholder="Contraseña" />
-      <button id="banner-close">Entrar</button>
-      <p id="banner-error" style="color:red; display:none; margin-top:10px;">Contraseña incorrecta ❌</p>
-    </div>
-  </div>
-
-  <div class="app card" id="app" style="display:none;">
+  <div class="app card" id="app">
     <header>
       <h1 id="title">✨ Martola & Gonzalo ✨</h1>
     </header>
@@ -121,7 +104,8 @@
       ],
       hearts: 18,
       apiBase: "",
-      coupleId: "marta-gonzalo"
+      coupleId: "marta-gonzalo",
+      targetDate: "2025-12-22T00:00:00"
     };
 
     const $ = (id) => document.getElementById(id);
@@ -138,21 +122,21 @@
     const wishAdd = $("wish-add");
     const wishList = $("wish-list");
     const kissCounterEl = $("kiss-counter");
-    const banner = $("banner");
-    const bannerClose = $("banner-close");
-    const bannerPass = $("banner-pass");
-    const bannerError = $("banner-error");
-    const app = $("app");
 
-    // Validar contraseña (palabra secreta "puchaina")
-    bannerClose.addEventListener('click', ()=>{
-      if((bannerPass.value||'').trim().toLowerCase() === 'puchaina'){
-        banner.style.display = 'none';
-        app.style.display = 'block';
-      } else {
-        bannerError.style.display = 'block';
+    // Cuenta regresiva
+    function updateCountdown(){
+      const now = new Date();
+      const target = new Date(CONFIG.targetDate);
+      const diff = target - now;
+      if(diff <= 0){
+        countdownEl.textContent = "¡Hoy nos vemos! 🎉";
+        return;
       }
-    });
+      const days = Math.ceil(diff / (1000*60*60*24));
+      countdownEl.textContent = `Faltan ${days} días para vernos ❤️`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000*60*60);
 
     // Diapositivas (sin temporizador)
     const slides = CONFIG.photos.map((p, i)=>{
@@ -235,4 +219,47 @@
         let count = lsGetCount();
         count++;
         lsSetCount(count);
-        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'besito':'besitos'}
+        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'besito':'besitos'} 💋`;
+      }
+    });
+
+    // Sorpresa
+    btnSurprise.addEventListener('click', ()=>{
+      surprise.classList.toggle('show');
+      if(surprise.classList.contains('show')){
+        burstHearts(window.innerWidth*0.8, window.innerHeight*0.3, 10);
+      }
+    });
+
+    // Lista de deseos (persistente en localStorage)
+    function renderWishes(){
+      const items = JSON.parse(localStorage.getItem('wishes')||'[]');
+      wishList.innerHTML = '';
+      items.forEach((t, i)=>{
+        const div = document.createElement('div');
+        div.className = 'wish-item';
+        div.textContent = '• ' + t;
+        div.title = 'Haz clic para borrar';
+        div.addEventListener('click', ()=>{
+          const arr = JSON.parse(localStorage.getItem('wishes')||'[]');
+          arr.splice(i,1);
+          localStorage.setItem('wishes', JSON.stringify(arr));
+          renderWishes();
+        });
+        wishList.appendChild(div);
+      });
+    }
+    renderWishes();
+
+    wishAdd.addEventListener('click', ()=>{
+      const v = wishInput.value.trim();
+      if(!v) return;
+      const arr = JSON.parse(localStorage.getItem('wishes')||'[]');
+      arr.push(v);
+      localStorage.setItem('wishes', JSON.stringify(arr));
+      wishInput.value = '';
+      renderWishes();
+    });
+  </script>
+</body>
+</html>
