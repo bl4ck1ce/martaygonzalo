@@ -143,14 +143,39 @@
     const app = $("app");
 
     // Validar contraseña (fecha 4 de marzo -> 04/03)
-    bannerClose.addEventListener('click', ()=>{
-      if(['04/03/2024','4/3/2024'].includes(bannerPass.value.trim())){
-        banner.style.display = 'none';
-        app.style.display = 'block';
-      } else {
-        bannerError.style.display = 'block';
-      }
-    });
+   // Normaliza la entrada para aceptar 04/03/2024, 4/3/2024, 04-03-2024, 04.03.2024, con/ sin espacios
+bannerClose.addEventListener('click', ()=>{
+  const raw = (bannerPass.value || '');
+  const n = raw
+    .trim()
+    .replace(/\s+/g,'')        // quita espacios
+    .replace(/[.\-]/g,'/')     // admite . y -
+    // quita ceros a la izquierda en día/mes para comparar bien
+    .replace(/^0?(\d)\/0?(\d)\/(\d{4})$/, '$1/$2/$3')
+    .replace(/^0?(\d)\/(\d{2})\/(\d{4})$/, '$1/$2/$3')
+    .replace(/^(\d{2})\/0?(\d)\/(\d{4})$/, '$1/$2/$3');
+
+  const valid = new Set(['4/3/2024','04/03/2024']);
+  if (valid.has(n)) {
+    banner.style.display = 'none';
+    app.style.display = 'block';
+  } else {
+    bannerError.style.display = 'block';
+    setTimeout(()=> bannerError.style.display='none', 2000);
+  }
+});
+
+// Permitir pulsar Enter y ocultar el error al escribir
+bannerPass.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    bannerClose.click();
+  }
+});
+bannerPass.addEventListener('input', ()=>{
+  if(bannerError.style.display === 'block') bannerError.style.display = 'none';
+});
+
 
     // Diapositivas (sin temporizador)
     const slides = CONFIG.photos.map((p, i)=>{
