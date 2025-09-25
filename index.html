@@ -65,8 +65,8 @@
   <div class="banner" id="banner">
     <div class="banner-content">
       <h2>Bienvenida, Martola ✨</h2>
-      <p>Introduce la contraseña para entrar (pista: es una fecha especial 💡)</p>
-      <input type="password" id="banner-pass" placeholder="DD/MM/YYYY" />
+      <p>Introduce la contraseña para entrar (pista: es una palabra especial 💡)</p>
+      <input type="password" id="banner-pass" placeholder="Contraseña" />
       <button id="banner-close">Entrar</button>
       <p id="banner-error" style="color:red; display:none; margin-top:10px;">Contraseña incorrecta ❌</p>
     </div>
@@ -144,9 +144,9 @@
     const bannerError = $("banner-error");
     const app = $("app");
 
-    // Validar contraseña (fecha 4 de marzo -> 04/03)
+    // Validar contraseña (palabra secreta "puchaina")
     bannerClose.addEventListener('click', ()=>{
-      if(['4/3/2024','04/03/2024'].includes((()=>{ let s=(bannerPass.value||'').trim().replaceAll(' ','').replaceAll('.','/').replaceAll('-','/'); const p=s.split('/'); if(p.length===3){ const d=String(parseInt(p[0],10)); const m=String(parseInt(p[1],10)); const y=p[2]; s=`${d}/${m}/${y}`;} return s; })())){
+      if((bannerPass.value||'').trim().toLowerCase() === 'puchaina'){
         banner.style.display = 'none';
         app.style.display = 'block';
       } else {
@@ -235,28 +235,4 @@
         let count = lsGetCount();
         count++;
         lsSetCount(count);
-        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'besito':'besitos'} 💋`;
-      }
-    });
-
-    // Sorpresa
-    btnSurprise.addEventListener('click', ()=>{
-      surprise.classList.toggle('show');
-      if(surprise.classList.contains('show')){
-        burstHearts(window.innerWidth*0.8, window.innerHeight*0.3, 10);
-      }
-    });
-
-    // Lista de deseos (persistente en localStorage)
-    function renderWishes(){
-      const items = JSON.parse(localStorage.getItem('wishes')||'[]');
-      wishList.innerHTML = '';
-      items.forEach((t, i)=>{
-        const div = document.createElement('div');
-        div.className = 'wish-item';
-        div.textContent = '• ' + t;
-        div.title = 'Haz clic para borrar';
-        div.addEventListener('click', ()=>{
-          const arr = JSON.parse(localStorage.getItem('wishes')||'[]');
-          arr.splice(i,1);
-          localStorage.setItem('wishes
+        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'besito':'besitos'}
