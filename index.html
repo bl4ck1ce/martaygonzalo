@@ -143,39 +143,14 @@
     const app = $("app");
 
     // Validar contraseña (fecha 4 de marzo -> 04/03)
-   // Normaliza la entrada para aceptar 04/03/2024, 4/3/2024, 04-03-2024, 04.03.2024, con/ sin espacios
-bannerClose.addEventListener('click', ()=>{
-  const raw = (bannerPass.value || '');
-  const n = raw
-    .trim()
-    .replace(/\s+/g,'')        // quita espacios
-    .replace(/[.\-]/g,'/')     // admite . y -
-    // quita ceros a la izquierda en día/mes para comparar bien
-    .replace(/^0?(\d)\/0?(\d)\/(\d{4})$/, '$1/$2/$3')
-    .replace(/^0?(\d)\/(\d{2})\/(\d{4})$/, '$1/$2/$3')
-    .replace(/^(\d{2})\/0?(\d)\/(\d{4})$/, '$1/$2/$3');
-
-  const valid = new Set(['4/3/2024','04/03/2024']);
-  if (valid.has(n)) {
-    banner.style.display = 'none';
-    app.style.display = 'block';
-  } else {
-    bannerError.style.display = 'block';
-    setTimeout(()=> bannerError.style.display='none', 2000);
-  }
-});
-
-// Permitir pulsar Enter y ocultar el error al escribir
-bannerPass.addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter'){
-    e.preventDefault();
-    bannerClose.click();
-  }
-});
-bannerPass.addEventListener('input', ()=>{
-  if(bannerError.style.display === 'block') bannerError.style.display = 'none';
-});
-
+    bannerClose.addEventListener('click', ()=>{
+      if(['4/3/2024','04/03/2024'].includes((()=>{ let s=(bannerPass.value||'').trim().replaceAll(' ','').replaceAll('.','/').replaceAll('-','/'); const p=s.split('/'); if(p.length===3){ const d=String(parseInt(p[0],10)); const m=String(parseInt(p[1],10)); const y=p[2]; s=`${d}/${m}/${y}`;} return s; })())){
+        banner.style.display = 'none';
+        app.style.display = 'block';
+      } else {
+        bannerError.style.display = 'block';
+      }
+    });
 
     // Diapositivas (sin temporizador)
     const slides = CONFIG.photos.map((p, i)=>{
