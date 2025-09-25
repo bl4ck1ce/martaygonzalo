@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>❤️</title>
   <meta name="description" content="Secreto." />
-  <!-- Open Graph / Twitter for compartir -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="❤️" />
   <meta property="og:description" content="Secreto." />
@@ -26,42 +25,80 @@
       background: linear-gradient(135deg, var(--bg1), var(--bg2)); display:flex; align-items:center; justify-content:center; padding:24px;}
     .app{width:min(100%,1100px);} 
     .card{ background:var(--card); backdrop-filter: blur(6px); border-radius:24px; box-shadow:0 20px 60px #00000025; overflow:hidden; text-align:center; display:flex; flex-direction:column; justify-content:center; align-items:center;}
-    header{ padding:16px 20px; background:#ffffffaa;}
-    @media (min-width:700px){ header{ padding:22px 26px; } }
-    header h1{margin:0; font-size:clamp(22px,3.2vw,34px); font-weight:700; letter-spacing:.3px}
+    header{ padding:20px; background:#ffffffaa;}
+    header h1{margin:0; font-size:clamp(24px,3.5vw,36px); font-weight:700; letter-spacing:.5px}
     .grid{display:grid; grid-template-columns:1fr; gap:0; width:100%;}
-    .left{padding:22px; display:flex; flex-direction:column; gap:16px; align-items:center;}
-    .message{font-size:clamp(16px,2.4vw,22px); line-height:1.45; background:#fff; padding:16px 18px; border-radius:18px; position:relative; box-shadow:0 8px 24px #00000014; max-width:620px;}
-    .message small{display:block; margin-top:10px; font-size:12px; color:var(--muted)}
-    .prep-photo{max-width:min(380px,70vw); width:100%; height:auto; border-radius:18px; margin:8px 0; box-shadow:0 8px 24px #00000033; object-fit:cover;}
+    .left{padding:28px; display:flex; flex-direction:column; gap:20px; align-items:center;}
+    .countdown{font-size:clamp(22px,3.2vw,30px); font-weight:700; color:var(--accent); background:#fff; padding:14px 20px; border-radius:18px; box-shadow:0 10px 28px #00000018;}
+    .kiss-counter{font-size:clamp(18px,2.5vw,24px); font-weight:600; color:#d6336c; background:#fff; padding:10px 14px; border-radius:14px; box-shadow:0 8px 22px #00000012;}
+    .cta{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+    .btn{appearance:none; border:none; cursor:pointer; padding:12px 16px; border-radius:999px; background:var(--accent); color:#fff; font-weight:700; box-shadow:0 6px 18px #ff4d6d55; transition:transform .1s ease;}
+    .btn:active{transform:scale(.98)}
+    .btn.secondary{background:#fff; color:var(--accent); border:2px solid var(--accent)}
+    .wish{display:flex; gap:8px; width:min(100%,640px)}
+    .wish input{flex:1; padding:12px 14px; border-radius:14px; border:2px solid #ffd1da; outline:none}
+    .wish-list{display:grid; gap:8px; width:min(100%,640px)}
+    .wish-item{background:#fff; border-radius:12px; padding:10px 12px; box-shadow:0 6px 16px #00000012; text-align:left}
     .right{position:relative; min-height:360px; overflow:hidden}
     .slideshow{position:relative; height:100%;}
-    .slide{ position:absolute; inset:0; background:#ddd center/cover no-repeat; opacity:0; transition:opacity 800ms ease;}
+    .slide{ position:absolute; inset:0; background:#ddd center/cover no-repeat; opacity:0; transition:opacity 500ms ease; border-radius:16px}
     .slide.active{opacity:1}
     .credit{position:absolute; right:12px; bottom:8px; color:#ffffffcc; font-size:12px; text-shadow:0 1px 2px #00000055}
     .hearts{position:absolute; inset:0; pointer-events:none; overflow:hidden}
-    .heart{position:absolute; font-size:18px; opacity:.8; animation: float 8s linear infinite;}
+    .heart{position:absolute; font-size:18px; opacity:.9; animation: float 8s linear forwards;}
     @keyframes float{0%{transform:translateY(40px) scale(.8); opacity:0} 10%{opacity:1} 100%{transform:translateY(-110%) scale(1.3); opacity:0}}
-    footer{padding:12px 22px; font-size:12px; color:var(--muted); text-align:center;}
-    /* Centrado especial en modo preparación */
-    .prep #main-content{display:flex; align-items:center; justify-content:center;}
-    .prep .right{display:none}
+    .surprise{display:none; background:#fff; padding:16px 18px; border-radius:16px; box-shadow:0 8px 24px #00000018; max-width:640px}
+    .surprise.show{display:block}
+    .banner{position:fixed; inset:0; background:rgba(0,0,0,.65); display:flex; align-items:center; justify-content:center; z-index:1000;}
+    .banner-content{background:#fff; padding:28px 32px; border-radius:20px; max-width:640px; box-shadow:0 10px 30px #00000055; text-align:center; animation:fadeIn .6s ease;}
+    .banner-content h2{margin:0 0 12px; font-size:clamp(22px,3vw,28px); color:var(--accent)}
+    .banner-content p{font-size:clamp(16px,2vw,20px); line-height:1.6; margin:0 0 18px;}
+    .banner-content input{padding:10px; border:2px solid #ffd1da; border-radius:8px; width:100%; margin-bottom:12px;}
+    .banner-content button{appearance:none; border:none; cursor:pointer; padding:10px 18px; border-radius:999px; background:var(--accent); color:#fff; font-weight:600; box-shadow:0 4px 14px #ff4d6d66;}
+    @keyframes fadeIn{from{opacity:0; transform:scale(.95)} to{opacity:1; transform:scale(1)}}
+    footer{padding:14px 24px; font-size:13px; color:var(--muted); text-align:center;}
   </style>
 </head>
 <body>
-  <div class="app card" id="app">
+  <div class="banner" id="banner">
+    <div class="banner-content">
+      <h2>Bienvenida, Martola ✨</h2>
+      <p>Introduce la contraseña para entrar (pista: es una fecha especial 💡)</p>
+      <input type="password" id="banner-pass" placeholder="DD/MM/YYYY" />
+      <button id="banner-close">Entrar</button>
+      <p id="banner-error" style="color:red; display:none; margin-top:10px;">Contraseña incorrecta ❌</p>
+    </div>
+  </div>
+
+  <div class="app card" id="app" style="display:none;">
     <header>
-      <h1 id="title">❤️</h1>
+      <h1 id="title">✨ Martola & Gonzalo ✨</h1>
     </header>
 
     <div class="grid" id="main-content">
       <section class="left">
-        <div class="message" id="message" role="status">
-          <span id="message-text">Ya queda menos para abrazarte 💕</span>
-          <small id="message-meta"></small>
+        <div class="countdown" id="countdown">Faltan — días para vernos</div>
+        <div class="kiss-counter" id="kiss-counter">Has enviado 0 besitos 💋</div>
+
+        <!-- CONTROLES INTERACTIVOS -->
+        <div class="cta">
+          <button class="btn" id="btn-kiss">Enviar un besito 💋</button>
+          <button class="btn secondary" id="btn-surprise">Abrir sorpresa ✨</button>
+          <button class="btn secondary" id="btn-prev">◀︎ Foto</button>
+          <button class="btn secondary" id="btn-next">Foto ▶︎</button>
         </div>
-        <img src="https://bl4ck1ce.github.io/martaygonzalo/img/marta-preparacion.jpg" alt="Foto especial de Marta" class="prep-photo" id="prep-photo" style="display:none">
-        <div class="message" id="prep-message" style="display:none">Estoy preparando algo especial para ti, Marta… ✨</div>
+
+        <!-- DESEA ALGO -->
+        <div class="wish">
+          <input id="wish-input" placeholder="Escribe un deseo para cuando nos veamos…" maxlength="120" />
+          <button class="btn" id="wish-add">Añadir</button>
+        </div>
+        <div class="wish-list" id="wish-list"></div>
+
+        <!-- SORPRESA -->
+        <div class="surprise" id="surprise">
+          Querida Marta, cada clic tuyo es un abrazo que se acerca. Gracias por esperar conmigo. ❤️
+        </div>
       </section>
 
       <section class="right">
@@ -76,107 +113,148 @@
 
   <script>
     const CONFIG = {
-      startDate: "2025-09-23T00:00:00",
-      targetDate: "2025-12-31T00:00:00",
-      messages: [
-        "Cada día que pasa estamos más cerca, Marta.",
-        "Pronto nos volveremos a abrazar, Marta.",
-        "El Erasmus termina, nuestro amor continúa.",
-        "Te echo de menos, Marta, pero la espera vale la pena.",
-        "Ya casi estamos juntos otra vez ❤️",
-      ],
-      messageMeta: ["", "", "", "", ""],
-      messageStartDate: "2025-09-23",
       photos: [
-        { src: "https://images.unsplash.com/photo-1518600506278-4e8ef466b810?q=80&w=1600&auto=format&fit=crop", credit: "Unsplash" },
         { src: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1600&auto=format&fit=crop", credit: "Unsplash" },
         { src: "https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1600&auto=format&fit=crop", credit: "Unsplash" },
       ],
-      hearts: 18
+      hearts: 18,
+      apiBase: "",
+      coupleId: "marta-gonzalo"
     };
 
     const $ = (id) => document.getElementById(id);
-    const msgEl = $("message-text"), metaEl=$("message-meta");
     const slideshow = $("slideshow");
     const credit = $("credit");
-    const footer = $("footer");
-    const prepPhoto = $("prep-photo");
-    const prepMessage = $("prep-message");
+    const hearts = document.getElementById('hearts');
+    const countdownEl = $("countdown");
+    const btnPrev = $("btn-prev");
+    const btnNext = $("btn-next");
+    const btnKiss = $("btn-kiss");
+    const btnSurprise = $("btn-surprise");
+    const surprise = $("surprise");
+    const wishInput = $("wish-input");
+    const wishAdd = $("wish-add");
+    const wishList = $("wish-list");
+    const kissCounterEl = $("kiss-counter");
+    const banner = $("banner");
+    const bannerClose = $("banner-close");
+    const bannerPass = $("banner-pass");
+    const bannerError = $("banner-error");
+    const app = $("app");
 
-    const start = new Date(CONFIG.startDate);
-    const now = new Date();
+    // Validar contraseña (fecha 4 de marzo -> 04/03)
+    bannerClose.addEventListener('click', ()=>{
+      if(['04/03/2024','4/3/2024'].includes(bannerPass.value.trim())){
+        banner.style.display = 'none';
+        app.style.display = 'block';
+      } else {
+        bannerError.style.display = 'block';
+      }
+    });
 
-    if(now < start){
-      // Modo preparación centrado
-      document.body.classList.add('prep');
-      msgEl.style.display = "none";
-      prepPhoto.style.display = "block";
-      prepMessage.style.display = "block";
-      footer.textContent = "Con todo mi cariño ❤️";
-      $("slideshow").style.display = "none";
-    } else {
-      let msgIdx = 0;
-      function showMessage(i){
-        msgIdx = (i + CONFIG.messages.length) % CONFIG.messages.length;
-        msgEl.textContent = CONFIG.messages[msgIdx];
-        metaEl.textContent = CONFIG.messageMeta?.[msgIdx] || '';
-      }
-      function initDailyMessages(){
-        const now = new Date();
-        const start = CONFIG.messageStartDate ? new Date(CONFIG.messageStartDate) : new Date();
-        start.setHours(0,0,0,0);
-        const days = Math.floor((now - start)/86400000);
-        showMessage(days);
-        const nextMidnight = new Date(now); nextMidnight.setHours(24,0,0,0);
-        setTimeout(()=>{
-          showMessage(msgIdx+1);
-          setInterval(()=> showMessage(msgIdx+1), 24*60*60*1000);
-        }, nextMidnight - now);
-      }
-      initDailyMessages();
+    // Diapositivas (sin temporizador)
+    const slides = CONFIG.photos.map((p, i)=>{
+      const div = document.createElement('div');
+      div.className = 'slide' + (i===0 ? ' active' : '');
+      div.style.backgroundImage = `url("${p.src}")`;
+      slideshow.appendChild(div);
+      return div;
+    });
+    let imgIdx = 0;
+    function show(idx){
+      imgIdx = (idx + slides.length) % slides.length;
+      slides.forEach((s, k)=> s.classList.toggle('active', k===imgIdx));
+      credit.textContent = CONFIG.photos[imgIdx].credit || '';
+    }
+    btnPrev.addEventListener('click', ()=> show(imgIdx-1));
+    btnNext.addEventListener('click', ()=> show(imgIdx+1));
 
-      let imgIdx = 0;
-      const slides = CONFIG.photos.map((p, i)=>{
-        const div = document.createElement('div');
-        div.className = 'slide';
-        div.style.backgroundImage = `url("${p.src}")`;
-        if(i===0) div.classList.add('active');
-        slideshow.appendChild(div);
-        return div;
-      });
-      function showPhoto(i){
-        imgIdx = (i+CONFIG.photos.length) % CONFIG.photos.length;
-        slides.forEach((s, k)=> s.classList.toggle('active', k===imgIdx));
-        credit.textContent = CONFIG.photos[imgIdx].credit || '';
-      }
-      function initDailyPhotos(){
-        const now = new Date();
-        const start = CONFIG.messageStartDate ? new Date(CONFIG.messageStartDate) : new Date();
-        start.setHours(0,0,0,0);
-        const days = Math.floor((now - start)/86400000);
-        showPhoto(days);
-        const nextMidnight = new Date(now); nextMidnight.setHours(24,0,0,0);
-        setTimeout(()=>{
-          showPhoto(imgIdx+1);
-          setInterval(()=> showPhoto(imgIdx+1), 24*60*60*1000);
-        }, nextMidnight - now);
-      }
-      initDailyPhotos();
-
-      const hearts = document.getElementById('hearts');
-      function spawnHeart(){
+    // Corazones (efecto burst al hacer clic)
+    function burstHearts(x=window.innerWidth/2, y=window.innerHeight/2, n=14){
+      for(let i=0;i<n;i++){
         const h = document.createElement('div');
         h.className='heart';
-        h.textContent = Math.random() < .3 ? '💘' : (Math.random()<.5 ? '💖' : '❤️');
-        h.style.left = Math.round(Math.random()*100)+"%";
-        h.style.animationDuration = (6 + Math.random()*6) + 's';
-        h.style.fontSize = (14 + Math.random()*18) + 'px';
+        h.textContent = Math.random()<.33 ? '💘' : (Math.random()<.66 ? '💖' : '❤️');
+        h.style.left = (x/window.innerWidth*100 + (Math.random()*8-4)) + '%';
+        h.style.top = (y/window.innerHeight*100 + (Math.random()*6-3)) + '%';
+        h.style.animationDuration = (5 + Math.random()*5) + 's';
+        h.style.fontSize = (16 + Math.random()*20) + 'px';
         hearts.appendChild(h);
-        setTimeout(()=> h.remove(), 12000);
+        setTimeout(()=> h.remove(), 11000);
       }
-      for(let i=0;i<CONFIG.hearts;i++) setTimeout(spawnHeart, i*400);
-      setInterval(spawnHeart, 1200);
     }
-  </script>
-</body>
-</html>
+
+    // Contador de besitos – compatible con backend o localStorage
+    async function backendGetCount(){
+      if(!CONFIG.apiBase) throw new Error('no-backend');
+      const r = await fetch(`${CONFIG.apiBase}/api/kiss?coupleId=${encodeURIComponent(CONFIG.coupleId)}`);
+      if(!r.ok) throw new Error('bad');
+      const data = await r.json();
+      return data.count ?? 0;
+    }
+    async function backendIncCount(){
+      if(!CONFIG.apiBase) throw new Error('no-backend');
+      const r = await fetch(`${CONFIG.apiBase}/api/kiss`, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({ coupleId: CONFIG.coupleId, delta: 1 })
+      });
+      if(!r.ok) throw new Error('bad');
+      const data = await r.json();
+      return data.count ?? 0;
+    }
+
+    function lsGetCount(){
+      return parseInt(localStorage.getItem('kissCount')||'0');
+    }
+    function lsSetCount(v){
+      localStorage.setItem('kissCount', String(v));
+      return v;
+    }
+
+    async function renderKissCounter(){
+      try{
+        const c = await backendGetCount();
+        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'besito':'besitos'} 💋`;
+      }catch{
+        const c = lsGetCount();
+        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'besito':'besitos'} 💋`;
+      }
+    }
+    renderKissCounter();
+
+    btnKiss.addEventListener('click', async (e)=>{
+      const rect = e.target.getBoundingClientRect();
+      burstHearts(rect.left + rect.width/2, rect.top, 18);
+      try{
+        const c = await backendIncCount();
+        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'besito':'besitos'} 💋`;
+      }catch{
+        let count = lsGetCount();
+        count++;
+        lsSetCount(count);
+        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'besito':'besitos'} 💋`;
+      }
+    });
+
+    // Sorpresa
+    btnSurprise.addEventListener('click', ()=>{
+      surprise.classList.toggle('show');
+      if(surprise.classList.contains('show')){
+        burstHearts(window.innerWidth*0.8, window.innerHeight*0.3, 10);
+      }
+    });
+
+    // Lista de deseos (persistente en localStorage)
+    function renderWishes(){
+      const items = JSON.parse(localStorage.getItem('wishes')||'[]');
+      wishList.innerHTML = '';
+      items.forEach((t, i)=>{
+        const div = document.createElement('div');
+        div.className = 'wish-item';
+        div.textContent = '• ' + t;
+        div.title = 'Haz clic para borrar';
+        div.addEventListener('click', ()=>{
+          const arr = JSON.parse(localStorage.getItem('wishes')||'[]');
+          arr.splice(i,1);
+          localStorage.setItem('wishes
