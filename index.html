@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>🌴 Retro Love</title>
-  <!-- Favicon inline estilo retro wave -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230ff'/%3E%3Cpath d='M32 50s-14-8.7-20-16.6C6.1 26.8 9.5 18 16.9 18c4.4 0 7.2 2.7 9.1 5.5 1.9-2.8 4.7-5.5 9.1-5.5 7.4 0 10.8 8.8 4.9 14.8C46 41.3 32 50 32 50z' fill='%23ff0'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,305 +20,211 @@
       --muted:#aaa;
     }
     *{box-sizing:border-box}
-    html,body{
+    body{
       margin:0;
       font-family:'Orbitron','Press Start 2P',sans-serif;
       color:var(--text);
       background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:16px;
-      min-height:100vh;
+      padding:24px;
     }
     .app{
-      width:min(100%,1100px);
+      width:100%;
+      max-width:900px;
     }
     .card{
       background:var(--card);
       backdrop-filter: blur(10px);
-      border-radius:16px;
+      border-radius:20px;
       box-shadow:0 0 40px #ff008055,0 0 80px #00f0ff55;
-      overflow:hidden;
-      text-align:center;
+      padding:24px;
+      border:2px solid var(--accent);
       display:flex;
       flex-direction:column;
-      justify-content:center;
+      gap:20px;
       align-items:center;
-      border:2px solid var(--accent);
-    }
-    header{
-      padding:24px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
     }
     header h1{
       margin:0;
-      font-size:clamp(24px,4vw,40px);
+      font-size:clamp(26px,5vw,44px);
       font-weight:800;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-align:center;
       text-shadow:0 0 10px var(--accent),0 0 20px var(--accent2);
     }
-    .grid{display:grid; grid-template-columns:1fr; gap:0; width:100%;}
-    .left{padding:32px; display:flex; flex-direction:column; gap:20px; align-items:center;}
-    .countdown{
-      font-size:clamp(20px,3vw,32px);
-      font-weight:700;
-      color:var(--accent2);
-      background:#000000aa;
-      padding:16px 20px;
+    .countdown,.kiss-counter{
+      width:100%;
+      text-align:center;
+      padding:16px;
       border-radius:12px;
+      font-weight:700;
+    }
+    .countdown{
+      font-size:1.6rem;
+      color:var(--accent2);
+      background:#000a;
       box-shadow:0 0 20px var(--accent2);
     }
     .kiss-counter{
-      font-size:clamp(18px,2.5vw,26px);
-      font-weight:600;
+      font-size:1.3rem;
       color:var(--accent);
-      background:#000000aa;
-      padding:12px 16px;
-      border-radius:12px;
+      background:#000a;
       box-shadow:0 0 20px var(--accent);
     }
-    .cta{display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+    .cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+    }
     .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
       padding:12px 18px;
+      border:none;
       border-radius:8px;
+      cursor:pointer;
       background:linear-gradient(90deg,var(--accent),var(--accent2));
       color:#fff;
       font-weight:700;
       text-transform:uppercase;
       letter-spacing:1px;
       box-shadow:0 0 12px var(--accent),0 0 20px var(--accent2);
-      transition:transform .1s ease,box-shadow .2s ease;
+      transition:transform .1s ease;
     }
-    .btn:active{transform:scale(.96)}
+    .btn:active{transform:scale(.95)}
     .btn.secondary{
       background:#111;
       border:2px solid var(--accent2);
       color:var(--accent2);
     }
-    .wish{display:flex; gap:8px; width:min(100%,640px)}
-    .wish input{
-      flex:1;
-      padding:12px 14px;
-      border-radius:8px;
-      border:2px solid var(--accent);
-      outline:none;
-      background:#000;
-      color:var(--text);
+    .slideshow{
+      position:relative;
+      width:100%;
+      height:360px;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 0 20px var(--accent2);
     }
-    .wish-list{display:grid; gap:8px; width:min(100%,640px)}
-    .wish-item{
-      background:#111;
-      border-left:4px solid var(--accent);
-      border-radius:8px;
-      padding:10px 12px;
-      box-shadow:0 0 12px #00000088;
-      text-align:left;
-    }
-    .right{position:relative; min-height:360px; overflow:hidden}
-    .slideshow{position:relative; height:100%;}
     .slide{
-      position:absolute; inset:0;
+      position:absolute;inset:0;
       background:#222 center/cover no-repeat;
       opacity:0;
-      transition:opacity 500ms ease;
-      border-radius:12px;
+      transition:opacity .5s ease;
     }
-    .slide.active{opacity:1; box-shadow:0 0 20px var(--accent2);}
-    .credit{position:absolute; right:12px; bottom:8px; color:#fff; font-size:12px; text-shadow:0 0 8px #000}
-    .hearts{position:absolute; inset:0; pointer-events:none; overflow:hidden}
-    .heart{position:absolute; font-size:18px; opacity:.9; animation: float 8s linear forwards;}
-    @keyframes float{0%{transform:translateY(40px) scale(.8); opacity:0} 10%{opacity:1} 100%{transform:translateY(-110%) scale(1.3); opacity:0}}
-    .surprise{display:none; background:#111; color:var(--accent2); padding:16px 18px; border-radius:12px; box-shadow:0 0 20px var(--accent2); max-width:640px}
-    .surprise.show{display:block}
-    footer{padding:14px 24px; font-size:13px; color:var(--muted); text-align:center;}
+    .slide.active{opacity:1}
+    .surprise{
+      display:none;
+      background:#111;
+      color:var(--accent2);
+      padding:16px;
+      border-radius:12px;
+      box-shadow:0 0 20px var(--accent2);
+      text-align:center;
+    }
   </style>
 </head>
 <body>
-  <div class="app card" id="app">
-    <header>
-      <h1 id="title">🌴 Martola & Gonzalo 🌴</h1>
-    </header>
-
-    <div class="grid" id="main-content">
-      <section class="left">
-        <div class="countdown" id="countdown">Faltan — días para vernos</div>
-        <div class="kiss-counter" id="kiss-counter">Has enviado 0 kiss 💋 <small id="kiss-mode" style="display:block; font-weight:400; color:#aaa; margin-top:4px"></small></div>
-
-        <!-- CONTROLES INTERACTIVOS -->
-        <div class="cta">
-          <button class="btn" id="btn-kiss">Enviar un kiss 💋</button>
-          <button class="btn secondary" id="btn-surprise">[CENSORED]</button>
-          <button class="btn secondary" id="btn-prev">◀︎ Foto</button>
-          <button class="btn secondary" id="btn-next">Foto ▶︎</button>
-        </div>
-
-        <!-- DESEA ALGO -->
-        <div class="wish">
-          <input id="wish-input" placeholder="Escribe un deseo retro…" maxlength="120" />
-          <button class="btn" id="wish-add">Añadir</button>
-        </div>
-        <div class="wish-list" id="wish-list"></div>
-
-        <!-- SORPRESA -->
-        <div class="surprise" id="surprise">
-          ✨ Bajo las luces retro, nuestro reencuentro será inolvidable. ✨
-        </div>
-      </section>
-
-      <section class="right">
-        <div class="slideshow" id="slideshow"></div>
-        <div class="hearts" id="hearts"></div>
-        <div class="credit" id="credit"></div>
-      </section>
+  <div class="app">
+    <div class="card">
+      <header>
+        <h1>🌴 Martola & Gonzalo 🌴</h1>
+      </header>
+      <div class="countdown" id="countdown">Faltan — días para vernos</div>
+      <div class="kiss-counter" id="kiss-counter">Has enviado 0 kiss 💋</div>
+      <div class="cta">
+        <button class="btn" id="btn-kiss">Enviar un kiss 💋</button>
+        <button class="btn secondary" id="btn-surprise">[CENSORED]</button>
+        <button class="btn secondary" id="btn-prev">◀︎ Foto</button>
+        <button class="btn secondary" id="btn-next">Foto ▶︎</button>
+      </div>
+      <div class="slideshow" id="slideshow"></div>
+      <div class="surprise" id="surprise">✨ Bajo las luces retro, nuestro reencuentro será inolvidable. ✨</div>
     </div>
-
-    <footer id="footer">Hecho con 💾 vibes retro para Marta</footer>
   </div>
 
   <script>
     const CONFIG = {
-      photos: [
-        { src: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1600&auto=format&fit=crop", credit: "Unsplash" },
-        { src: "https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1600&auto=format&fit=crop", credit: "Unsplash" },
+      photos:[
+        {src:"https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=1600&auto=format&fit=crop"},
+        {src:"https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1600&auto=format&fit=crop"}
       ],
-      hearts: 18,
-      apiBase: "https://TU-PROYECTO.vercel.app",
-      coupleId: "marta-gonzalo",
-      targetDate: "2025-12-22T00:00:00"
+      targetDate:"2025-12-22T00:00:00",
+      apiBase:"https://TU-PROYECTO.vercel.app",
+      coupleId:"marta-gonzalo"
     };
 
-    const $ = (id) => document.getElementById(id);
-    const slideshow = $("slideshow");
-    const credit = $("credit");
-    const hearts = document.getElementById('hearts');
-    const countdownEl = $("countdown");
-    const btnPrev = $("btn-prev");
-    const btnNext = $("btn-next");
-    const btnKiss = $("btn-kiss");
-    const btnSurprise = $("btn-surprise");
-    const surprise = $("surprise");
-    const wishInput = $("wish-input");
-    const wishAdd = $("wish-add");
-    const wishList = $("wish-list");
-    const kissCounterEl = $("kiss-counter");
-    const kissModeEl = $("kiss-mode");
-
+    // Countdown
+    const countdownEl=document.getElementById("countdown");
     function updateCountdown(){
-      const now = new Date();
-      const target = new Date(CONFIG.targetDate);
-      const diff = target - now;
-      if(diff <= 0){
-        countdownEl.textContent = "¡Hoy nos vemos! 🎉";
-        return;
-      }
-      const days = Math.ceil(diff / (1000*60*60*24));
-      countdownEl.textContent = `Faltan ${days} días para vernos 🌴`;
+      const now=new Date();const target=new Date(CONFIG.targetDate);const diff=target-now;
+      if(diff<=0){countdownEl.textContent="¡Hoy nos vemos! 🎉";return;}
+      const days=Math.ceil(diff/(1000*60*60*24));
+      countdownEl.textContent=`Faltan ${days} días para vernos 🌴`;
     }
-    updateCountdown();
-    setInterval(updateCountdown, 1000*60*60);
+    updateCountdown();setInterval(updateCountdown,1000*60*60);
 
-    const slides = CONFIG.photos.map((p, i)=>{
-      const div = document.createElement('div');
-      div.className = 'slide' + (i===0 ? ' active' : '');
-      div.style.backgroundImage = `url("${p.src}")`;
-      slideshow.appendChild(div);
-      return div;
+    // Slideshow
+    const slideshow=document.getElementById("slideshow");
+    let imgIdx=0;
+    const slides=CONFIG.photos.map((p,i)=>{
+      const d=document.createElement("div");
+      d.className="slide"+(i===0?" active":"");
+      d.style.backgroundImage=`url(${p.src})`;
+      slideshow.appendChild(d);
+      return d;
     });
-    let imgIdx = 0;
     function show(idx){
-      imgIdx = (idx + slides.length) % slides.length;
-      slides.forEach((s, k)=> s.classList.toggle('active', k===imgIdx));
-      credit.textContent = CONFIG.photos[imgIdx].credit || '';
+      imgIdx=(idx+slides.length)%slides.length;
+      slides.forEach((s,k)=>s.classList.toggle("active",k===imgIdx));
     }
-    btnPrev.addEventListener('click', ()=> show(imgIdx-1));
-    btnNext.addEventListener('click', ()=> show(imgIdx+1));
+    document.getElementById("btn-prev").onclick=()=>show(imgIdx-1);
+    document.getElementById("btn-next").onclick=()=>show(imgIdx+1);
 
-    function burstHearts(x=window.innerWidth/2, y=window.innerHeight/2, n=14){
-      for(let i=0;i<n;i++){
-        const h = document.createElement('div');
-        h.className='heart';
-        h.textContent = Math.random()<.33 ? '💾' : (Math.random()<.66 ? '🌴' : '💖');
-        h.style.left = (x/window.innerWidth*100 + (Math.random()*8-4)) + '%';
-        h.style.top = (y/window.innerHeight*100 + (Math.random()*6-3)) + '%';
-        h.style.animationDuration = (5 + Math.random()*5) + 's';
-        h.style.fontSize = (16 + Math.random()*20) + 'px';
-        hearts.appendChild(h);
-        setTimeout(()=> h.remove(), 11000);
-      }
-    }
-
+    // Kiss counter online/local
+    const kissCounter=document.getElementById("kiss-counter");
     async function backendGetCount(){
-      if(!CONFIG.apiBase) throw new Error('no-backend');
-      const r = await fetch(`${CONFIG.apiBase}/api/kiss?coupleId=${encodeURIComponent(CONFIG.coupleId)}`, { headers: { 'Accept':'application/json' } });
-      if(!r.ok) throw new Error('bad');
-      const data = await r.json().catch(()=>({count:0}));
-      const n = Number(data.count);
-      return Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
+      const r=await fetch(`${CONFIG.apiBase}/api/kiss?coupleId=${CONFIG.coupleId}`);
+      if(!r.ok) throw new Error("bad");
+      const data=await r.json();
+      return data.count||0;
     }
     async function backendIncCount(){
-      if(!CONFIG.apiBase) throw new Error('no-backend');
-      const r = await fetch(`${CONFIG.apiBase}/api/kiss`, {
-        method: 'POST',
-        headers: { 'Content-Type':'application/json', 'Accept':'application/json' },
-        body: JSON.stringify({ coupleId: CONFIG.coupleId, delta: 1 })
-      });
-      if(!r.ok) throw new Error('bad');
-      const data = await r.json().catch(()=>({count:0}));
-      const n = Number(data.count);
-      return Number.isFinite(n) ? Math.max(0, Math.floor(n)) : 0;
+      const r=await fetch(`${CONFIG.apiBase}/api/kiss`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({coupleId:CONFIG.coupleId,delta:1})});
+      if(!r.ok) throw new Error("bad");
+      const data=await r.json();
+      return data.count||0;
     }
 
-    function lsGetCount(){
-      const raw = localStorage.getItem('kissCount');
-      if(raw === null) return 0;
-      const n = parseInt(raw, 10);
-      return Number.isFinite(n) ? Math.max(0, n) : 0;
-    }
-    function lsSetCount(v){ localStorage.setItem('kissCount', String(v)); return v; }
-
-    async function renderKissCounter(){
-      if(kissModeEl) kissModeEl.textContent = CONFIG.apiBase ? 'modo compartido (online)' : 'modo local (este dispositivo)';
+    async function renderKisses(){
       try{
-        const c = await backendGetCount();
-        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'kiss':'kisses'} 💋`;
-        if(kissModeEl) kissModeEl.textContent = 'modo compartido (online)';
+        const c=await backendGetCount();
+        kissCounter.textContent=`Has enviado ${c} ${c===1?"kiss":"kisses"} 💋`;
       }catch{
-        const c = lsGetCount();
-        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'kiss':'kisses'} 💋`;
-        if(kissModeEl) kissModeEl.textContent = 'modo local (este dispositivo)';
+        let local=parseInt(localStorage.getItem("kissCount")||"0",10);
+        kissCounter.textContent=`Has enviado ${local} ${local===1?"kiss":"kisses"} 💋`;
       }
     }
-    renderKissCounter();
+    renderKisses();
 
-    btnKiss.addEventListener('click', async (e)=>{
-      const rect = e.target.getBoundingClientRect();
-      burstHearts(rect.left + rect.width/2, rect.top, 18);
+    document.getElementById("btn-kiss").onclick=async()=>{
       try{
-        const c = await backendIncCount();
-        kissCounterEl.textContent = `Has enviado ${c} ${c===1?'kiss':'kisses'} 💋`;
+        const c=await backendIncCount();
+        kissCounter.textContent=`Has enviado ${c} ${c===1?"kiss":"kisses"} 💋`;
       }catch{
-        let count = lsGetCount();
-        count++;
-        lsSetCount(count);
-        kissCounterEl.textContent = `Has enviado ${count} ${count===1?'kiss':'kisses'} 💋`;
+        let local=parseInt(localStorage.getItem("kissCount")||"0",10)+1;
+        localStorage.setItem("kissCount",local);
+        kissCounter.textContent=`Has enviado ${local} ${local===1?"kiss":"kisses"} 💋`;
       }
-    });
+    };
 
-    btnSurprise.addEventListener('click', ()=>{
-      surprise.classList.toggle('show');
-      if(surprise.classList.contains('show')){
-        burstHearts(window.innerWidth*0.8, window.innerHeight*0.3, 10);
-      }
-    });
-
-    function renderWishes(){
-      const items = JSON.parse(localStorage.getItem('wishes')||'[]');
-      wishList.innerHTML = '';
-      items.forEach((t, i)=>{
-        const div = document.createElement('div');
-        div.className = 'wish-item
+    document.getElementById("btn-surprise").onclick=()=>{
+      const s=document.getElementById("surprise");
+      s.style.display=s.style.display==="none"?"block":"none";
+    };
+  </script>
+</body>
+</html>
